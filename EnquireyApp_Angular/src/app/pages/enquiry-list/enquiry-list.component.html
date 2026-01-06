@@ -1,0 +1,129 @@
+<div class="main_container">
+    <div class="container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h1 class="display-5 fw-bold mb-2">
+                        <i class="bi bi-envelope-paper text-primary"></i> Customer Enquiries
+                    </h1>
+                    <p class="text-muted mb-0">Manage and track all customer enquiries efficiently</p>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <button class="btn btn-primary" onclick="loadEnquiries()">
+                        <i class="bi bi-arrow-clockwise"></i> Refresh
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filter Section -->
+        <div class="filter-section">
+            <div class="row g-3">
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-search"></i></span>
+                        <input type="text" class="form-control" id="searchInput" placeholder="Search by name, email, or message...">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <select
+                        aria-label="enquiry_type_id"
+                        class="form-select"
+                        [(ngModel)]="selectedEnquiryType"
+                        id="enquiry_type_id"
+                        name = "enquiryTypeId">
+                        <option value="-1" selected>All Enquiry types</option> 
+                        @for(item of typeList| async; track item.typeId){
+                                <option [value]="item.typeId">{{item.typeName}}</option>
+                        }
+             
+                    </select>
+                </div>
+                <div class="col-md-3">
+                     <select
+                        aria-label="All Status"
+                        class="form-select"
+                        [(ngModel)]="selectedStatusType"
+                        id="statusFilter"
+                        name = "statusId">
+                        <option value="-1" selected>All Status</option> 
+                        @for(item of statusList| async; track item.statusId){
+                                <option [value]="item.statusId">{{item.status}}</option>
+                        }
+             
+                    </select>
+                </div>
+                <div class="col-md-1">
+                    <button class="btn btn-outline-secondary w-100" onclick="clearFilters()">
+                        <i class="bi bi-x-circle">Clear</i>
+                    </button>
+                </div>
+            </div>
+            <div class="mt-3">
+                <small class="text-muted">
+                    Showing <span id="resultCount" class="fw-bold">0</span> of <span id="totalCount" class="fw-bold">0</span> enquiries
+                </small>
+            </div>
+        </div>
+
+        <!-- Loading Spinner -->
+         @if(loadingSpinner){
+            <div id="loadingSpinner" class="text-center py-5" >
+                <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <p class="mt-3 text-muted">Loading enquiries...</p>
+            </div>
+        }
+        <div *ngIf="!loadingSpinner">
+        <!-- Enquiries Grid -->
+            <div id="enquiriesGrid" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            <!-- enquiry-grid.component.html -->
+            
+                <table class="table table-striped table-bordered table-hover">
+                <thead class="table-primary">
+                <tr>
+                    <th>ID</th>
+                    <th>Type ID</th>
+                    <th>Status ID</th>
+                    <th>Customer Name</th>
+                    <th>Email</th>
+                    <th>Message</th>
+                    <th>Created Date</th>
+                    <th>Resolution</th>
+                    <th>Mobile No</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let enquiry of enquiryList">
+                    <td>{{ enquiry.enquiryId }}</td>
+                    <td>{{ enquiry.enquiryTypeId }}</td>
+                    <td>{{ enquiry.enquiryStatusId }}</td>
+                    <td>{{ enquiry.customerName }}</td>
+                    <td>{{ enquiry.email }}</td>
+                    <td>{{ enquiry.message }}</td>
+                    <td>{{ enquiry.createdDate | date:'short' }}</td>
+                    <td>{{ enquiry.resolution }}</td>
+                    <td>{{ enquiry.mobileNo }}</td>
+                    <td><a [routerLink]="['/createNew',enquiry.enquiryId]" class="btn btn-primary">Edit</a></td>
+                    <td><a class="btn btn-primary" onclick="deleteEnquiry();">Delete</a></td>
+                </tr>
+                </tbody>
+                </table>
+            
+
+            </div>
+        </div>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="text-center py-5" style="display: none;">
+            <div class="mb-4">
+                <i class="bi bi-inbox" style="font-size: 4rem; color: #dee2e6;"></i>
+            </div>
+            <h4 class="text-muted">No enquiries found</h4>
+            <p class="text-muted">Try adjusting your filters or search criteria.</p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,111 @@
+<div class="container">
+    <div class="form-container">
+      <div class="form-header">
+        <h2>Submit an Enquiry</h2>
+        <p>Fill out the form below and we'll get back to you as soon as possible</p>
+      </div>
+  
+      <div *ngIf="submitSuccess" class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Success!</strong> Your enquiry has been submitted successfully. We will contact you soon.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" (click)="submitSuccess = false"></button>
+      </div>
+  
+      <div *ngIf="submitError" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Error!</strong> {{ errorMessage }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" (click)="submitError = false"></button>
+      </div>
+  
+      <form (ngSubmit)="onSave()">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="customer_name" class="form-label">Customer Name <span class="text-danger">*</span></label>
+            <input
+              type="text"
+              class="form-control"
+              id="customer_name"
+              placeholder="Enter your full name"
+              [(ngModel)]="newEnquiryObj.customerName"
+              name="customer_name"
+             >
+            
+          </div>
+  
+          <div class="col-md-6 mb-3">
+            <label for="mobile_no" class="form-label">Mobile Number <span class="text-danger">*</span></label>
+            <input
+              type="text"
+              class="form-control"
+              id="mobile_no"
+              [(ngModel)]="newEnquiryObj.mobileNo"
+              name="mobile_no"
+              placeholder="Enter 10-digit mobile number"
+              maxlength="10"
+             >
+            
+          </div>
+        </div>
+  
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="email" class="form-label">Email Address <span class="text-danger">*</span></label>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              [(ngModel)]="newEnquiryObj.email"
+              name="email"
+              placeholder="Enter your email"
+            >
+            
+          </div>
+  
+          <div class="col-md-6 mb-3">
+            <label for="enquiry_type_id" class="form-label">Enquiry Type <span class="text-danger">*</span></label>
+            <select
+              class="form-select"
+              [(ngModel)]="newEnquiryObj.enquiryTypeId"
+              id="enquiry_type_id"
+              name = "enquiryTypeId" 
+              >
+              <option value="">Select enquiry type</option> 
+              @for(item of typeList| async; track item.typeId){
+                    <option [value]="item.typeId">{{item.typeName}}</option>
+              }
+             
+            </select>
+            
+          </div>
+        </div>
+  
+ 
+        <div class="mb-4">
+          <label for="message" class="form-label">Message <span class="text-danger">*</span></label>
+          <textarea
+            class="form-control"
+            [(ngModel)]="newEnquiryObj.message"
+            id="message"
+            name="message"
+            rows="5"
+            placeholder="Please describe your enquiry in detail"
+            ></textarea>
+          
+        </div>
+  
+        <div class="d-flex justify-content-between">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            >Submit
+          </button>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="onReset()"
+            [disabled]="isSubmitting">
+            Reset
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

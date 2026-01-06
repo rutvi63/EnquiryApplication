@@ -1,0 +1,12 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+<<<<<<< HEAD
+/Enquiry.API/.vs/Enquiry.API/CopilotIndices/17.14.1530.14912
+/Enquiry.API/.vs/Enquiry.API/FileContentIndex
+/Enquiry.API/obj/Debug/net8.0
+=======
+/Enquiry.API/Program.cs
+>>>>>>> db557796c8710ac65b495354c74ee1857118e8b1
+/Enquiry.API/Controllers/EnquiryMasterController.cs

@@ -77,7 +77,38 @@
           </div>
         </div>
   
- 
+        <div class="row">
+          
+          <div class="col-md-6 mb-3">
+            <label for="status_type_id" class="form-label">Status Type <span class="text-danger">*</span></label>
+            <select
+              class="form-select"
+              [(ngModel)]="newEnquiryObj.enquiryStatusId"
+              id="status_type_id"
+              name = "statusTypeId" 
+              (change)="onStatusChange();">
+              <option value="">Select status type</option> 
+              @for(item of statusList| async; track item.statusId){
+                    <option [value]="item.statusId">{{item.status}}</option>
+              }
+             
+            </select>
+            
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="resolution" class="form-label">Resolution</label>
+            <input
+              type="text"
+              class="form-control"
+              id="resolution"
+              [(ngModel)]="newEnquiryObj.resolution"
+              name="resolution"
+              placeholder="Enter the resolution"
+              [disabled]=isDisabled>
+            
+          </div>
+  
+        </div>
         <div class="mb-4">
           <label for="message" class="form-label">Message <span class="text-danger">*</span></label>
           <textarea

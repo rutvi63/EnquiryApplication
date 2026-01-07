@@ -9,7 +9,7 @@ namespace Enquiry.API.Model
     [Table("Enquiry")]
     public class EnquiryModel
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        
         public int enquiryId { get; set; }
         public int enquiryTypeId { get; set; }
 

@@ -64,13 +64,13 @@ enquiryId: string|null = "";
     this.submitError = false;
     this.errorMessage = '';
     this.enquiryId = this.route.snapshot.paramMap.get('id');
-    window.alert("Id:" + this.enquiryId)
+   
     
    
   }
   ngOnInit(): void {
     this.typeList = this.masterService.getTypes();
-
+    window.alert("Enquiry Id: "+ this.enquiryId);
     if(!this.c){
       this.onEdit(Number(this.enquiryId));
       

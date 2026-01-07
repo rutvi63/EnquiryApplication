@@ -40,7 +40,6 @@ route = inject(ActivatedRoute);
 enquiryId: string|null = "";
   onSave()
   {
-    console.log(this.c);
     if(this.c)
     {
       this.newEnquiryObj.enquiryStatusId = 1;
@@ -51,9 +50,9 @@ enquiryId: string|null = "";
       this.masterService.UpdateEnquiry(this.newEnquiryObj);
       window.alert("Data saved successfully");
     }
-   
+    this.router.navigate(['/list']);
   }
-  constructor()
+  constructor(private router: Router)
   {
     this.typeList = this.masterService.getTypes();
     this.statusList = this.masterService.getStatus();
@@ -64,19 +63,45 @@ enquiryId: string|null = "";
     this.submitError = false;
     this.errorMessage = '';
     this.enquiryId = this.route.snapshot.paramMap.get('id');
-   
+    if(!this.enquiryId)
+    {
+      this.c = true;
+      this.newEnquiryObj.enquiryStatusId = 1;
+    }
+    else
+    {
+      this.c = false;
+      if(this.newEnquiryObj.enquiryStatusId == 4)
+      {
+
+          this.isDisabled = false;
+      }
+      else{
+        debugger;
+        this.isDisabled = true;
+      }
+    }
     
    
   }
   ngOnInit(): void {
     this.typeList = this.masterService.getTypes();
-    window.alert("Enquiry Id: "+ this.enquiryId);
     if(!this.c){
       this.onEdit(Number(this.enquiryId));
-      
     }
   }
-
+  onStatusChange(){
+    console.log(this.newEnquiryObj.enquiryStatusId);
+    if(this.newEnquiryObj.enquiryStatusId == 4){
+       this.isDisabled = false;
+      window.alert("Are you sure you need to close this enquiry? Please give the resolution for the enquiry.");
+    }
+    else{
+      this.isDisabled = true;
+    }
+   
+    
+  }
   onReset(){
     
   }
@@ -86,7 +111,6 @@ enquiryId: string|null = "";
       {
         this.newEnquiryObj = res;
       });
-      
   }
   
 }

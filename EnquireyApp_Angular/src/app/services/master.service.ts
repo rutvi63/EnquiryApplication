@@ -36,7 +36,7 @@ export class MasterService {
   }
 
   DeleteEnquiryById(id: number): Observable<boolean>{
-    return this.http.delete<boolean>("https://localhost:7124/api/EnquiryMaster/DeleteEnquiryById/" + id);
+    return this.http.delete<boolean>("https://localhost:7124/api/EnquiryMaster/DeleteEnquiryById?id=" + id);
   }
 }
 

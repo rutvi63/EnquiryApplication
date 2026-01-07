@@ -108,7 +108,7 @@
                     <td>{{ enquiry.resolution }}</td>
                     <td>{{ enquiry.mobileNo }}</td>
                     <td><a [routerLink]="['/createNew',enquiry.enquiryId]" class="btn btn-primary">Edit</a></td>
-                    <td><a class="btn btn-primary" onclick="deleteEnquiry();">Delete</a></td>
+                    <td><a class="btn btn-primary" (click)="deleteEnquiry(enquiry.enquiryId)">Delete</a></td>
                 </tr>
                 </tbody>
                 </table>

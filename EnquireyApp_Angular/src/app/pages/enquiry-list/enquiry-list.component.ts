@@ -4,9 +4,8 @@ import { Observable } from 'rxjs/internal/Observable';
 import { CommonModule } from '@angular/common';
 import { Enquiry } from '../../models/enquiry.model';
 import { FormsModule } from '@angular/forms';
-import { RouterLink, RouterOutlet } from '@angular/router';
-import { ActivatedRoute } from '@angular/router';
-
+import { RouterLink } from '@angular/router';
+import { ActivatedRoute , RouterOutlet} from '@angular/router';
 
 @Component({
   selector: 'app-enquiry-list',
@@ -48,7 +47,15 @@ export class EnquiryListComponent implements OnInit{
     
   }
   deleteEnquiry(id: number): void{
-    this.masterSer.DeleteEnquiryById(id);      
+    this.masterSer.DeleteEnquiryById(id).subscribe({
+      next: (res) => {
+        console.log('Enquiry deleted successfully', res);
+        this.loadEnquiries();
+      },
+      error: (err) => {
+        console.error('Error deleting enquiry', err);
+      }
+    });      
   }
   
 }

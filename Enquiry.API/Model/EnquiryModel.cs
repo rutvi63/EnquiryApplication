@@ -28,3 +28,4 @@ namespace Enquiry.API.Model
         public string resolution { get; set; }
     }
 }
+

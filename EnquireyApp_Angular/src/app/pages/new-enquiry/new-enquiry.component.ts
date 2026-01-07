@@ -64,7 +64,7 @@ enquiryId: string|null = "";
     this.submitError = false;
     this.errorMessage = '';
     this.enquiryId = this.route.snapshot.paramMap.get('id');
-    
+    window.alert("Id:" + this.enquiryId)
     
    
   }
